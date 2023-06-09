@@ -1,0 +1,99 @@
+<form class="container pb-3 rounded-3" #formularioForm="ngForm">
+  <div class="">
+    <h4>Filtros por monedas</h4>
+  </div>
+  <div class="row">
+    <div class="mb-3 col-4">
+      <label for="monedaOrigen" class="form-label">Filtrar Moneda origen</label>
+      <select class="form-select" id="monedaOrigen" aria-label="Default select example" name="monedaOrigen" [(ngModel)]="transaccion.monedaOrigen" required #monedaOrigen="ngModel">
+        <option selected disabled>Seleccione una Moneda</option>
+        <option *ngFor="let m of simbolosDeMonedas" value="{{m.symbol}}">{{m.name}}</option>
+      </select>
+      <div *ngIf="monedaOrigen.invalid && (monedaOrigen.dirty || monedaOrigen.touched)" class="alert alert-danger">
+        <div *ngIf="monedaOrigen.errors?.['required']">
+          Debe ingresar un moneda de origen
+        </div>
+      </div>
+    </div>
+    <div class="mb-3 col-4">
+      <label for="monedaDestino" class="form-label">Filtrar Moneda destino</label>
+      <select class="form-select" id="monedaDestino" aria-label="Default select example" name="monedaDestino" [(ngModel)]="transaccion.monedaDestino" required #monedaDestino="ngModel">
+        <option selected disabled>Seleccione una Moneda</option>
+        <option *ngFor="let m of simbolosDeMonedas" value="{{m.symbol}}">{{m.name}}</option>
+      </select>
+      <div *ngIf="monedaDestino.invalid && (monedaDestino.dirty || monedaDestino.touched)" class="alert alert-danger">
+        <div *ngIf="monedaDestino.errors?.['required']">
+          Debe ingresar un moneda de origen
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3">
+      <div class="mb-3">
+        <button type="submit" class="form-control bg-warning rounded-0" (click)="filtrarTransaaciones()" [disabled]="!formularioForm.valid">Filtrar<i class="bi bi-arrow-right-short text-white float-end"></i></button>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="mb-3">
+        <button type="submit" class="form-control bg-info rounded-0" (click)="obtenerTransacciones()">Obtener todos el registro<i class="bi bi-arrow-right-short text-white float-end"></i></button>
+      </div>
+    </div>
+  </div>
+
+</form>
+
+<div class="container" *ngIf="mostrarTodo==true">
+    <table class="table caption-top">
+      <caption class="text-center fw-bold">Lista de todas las transacciones registradas</caption>
+      <thead class="bg-secondary text-white">
+        <tr>
+          <th scope="col">Email</th>
+          <th scope="col">Moneda Origen</th>
+          <th scope="col">Cantidad origen</th>
+          <th scope="col">Moneda Destino</th>
+          <th scope="col">Cantidad Destino</th>
+          <th scope="col">Tasa de conversion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of arrayTransacciones">
+          <td>{{t.emailCliente}}</td>
+          <td>{{t.monedaOrigen}}</td>
+          <td>{{t.cantidadOrigen | currency:'':'symbol':'1.1-2' }}</td>
+          <td>{{t.monedaDestino}}</td>
+          <td>{{t.cantidadDestino | currency:'':'symbol':'1.1-2' }}</td>
+          <td>{{t.tasaConversion | currency:'':'symbol':'0.0-4' }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+</div>
+
+
+<div class="container" *ngIf="mostrarFiltros==true">
+  <table class="table caption-top">
+    <caption class="text-center fw-bold">Lista de transacciones filtradas</caption>
+    <thead class="bg-secondary text-white">
+      <tr>
+        <th scope="col">Email</th>
+        <th scope="col">Moneda Origen</th>
+        <th scope="col">Cantidad origen</th>
+        <th scope="col">Moneda Destino</th>
+        <th scope="col">Cantidad Destino</th>
+        <th scope="col">Tasa de conversion</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let t of arryTransaccionesFiltradas">
+        <td>{{t.emailCliente}}</td>
+        <td>{{t.monedaOrigen}}</td>
+        <td>{{t.cantidadOrigen | currency:'':true:'1.1-2' }}</td>
+        <td>{{t.monedaDestino}}</td>
+        <td>{{t.cantidadDestino | currency:'':true:'1.1-2' }}</td>
+        <td>{{t.tasaConversion | currency:'':true:'0.0-4' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

@@ -1,0 +1,68 @@
+<div>
+  <form class="container mt-5 w-50" #ticketForm="ngForm">
+    <fieldset class="border border-1 border-black rounded-2">
+    <legend class="fw-bold text-center bg-info rounded-top-2" *ngIf="accion=='new'">Registrar Ticket</legend>
+    <legend class="fw-bold text-center bg-success rounded-top-2" *ngIf="accion=='update'">Modificar Ticket</legend>
+    
+    <div class="mb-3 p-1">
+      <label for="informacion" class="form-label">Informacion del cliente</label>
+      <input type="text" class="form-control" value="DNI: {{espectador.dni}}" disabled>
+      <input type="text" class="form-control" value="Nombre: {{espectador.nombre}}" disabled>
+      <input type="text" class="form-control" value="Apellido: {{espectador.apellido}}" disabled>
+    </div>
+
+    <div class="mb-3 p-1">
+        <label for="precio" class="form-label">Precio del ticket</label>
+        <input type="number" class="form-control" id="precio" name="precio" [(ngModel)]="ticket.precioTicket" required #precio="ngModel" verificar-Moneda>
+        <div *ngIf="precio.invalid && (precio.dirty || precio.touched)" class="alert alert-danger">
+            <div *ngIf="precio.errors?.['required']">
+                Debe ingresar un precio
+            </div>
+            <div *ngIf="precio.errors?.['valorCorrecto']">
+                Debe ingresar un precio mayor a 100
+            </div>
+        </div>
+    </div>
+    
+    <div class="mb-3 p-1">
+        <label for="tipo" class="form-label">Tipo Expectador</label>
+        <select class="form-select" id="tipo" aria-label="Default select example" name="tipo" [(ngModel)]="ticket.categoriaEspectador" required #tipo="ngModel">
+            <option selected disabled>Elejir tipo de Expectador</option>
+            <option value="e">Extranjero</option>
+            <option value="l">Local</option>
+        </select>
+        <div *ngIf="tipo.invalid && (tipo.dirty || tipo.touched)" class="alert alert-danger">
+            <div *ngIf="tipo.errors?.['required']">
+                Debe ingresar un tipo
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="mb-3 text-center" *ngIf="accion=='new'">
+      <div class="row g-0">
+        <div class="col-md-6">
+          <button type="input" (click)="guardarTicket()" class="btn btn-primary rounded-2 fw-bold" [disabled]="!ticketForm.valid">Registrar</button>
+        </div>
+        <div class="col-md-6">
+          <button type="input" (click)="cancelarOperacion()" class="btn btn-secondary rounded-2">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3 text-center" *ngIf="accion==='update'">
+        <div class="row g-0">
+            <div class="col-md-6">
+                <button type="input" (click)="modificarTicket()" class="btn btn-success rounded-2" [disabled]="!ticketForm.valid">Modificar</button>
+            </div>
+            <div class="col-md-6">
+                <button type="input" (click)="cancelarOperacion()" class="btn btn-secondary rounded-2">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    </fieldset>
+  </form>
+
+</div>

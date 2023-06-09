@@ -1,0 +1,53 @@
+<div class="container align-content-center text-center">
+    <button type="input" (click)="registrarTicket()" class="btn btn-success rounded-2 fw-bold">Registrar Ticket<i class="bi bi-clipboard2-fill"></i></button>
+  </div>
+
+<div class="container">
+  <div>
+    <h4 class="fw-bold">Filtro de ticket</h4>
+  </div>
+  <div class="container">
+    <div class="mb-3">
+      <label for="tipo" class="form-label">Filtrar por Tipo de Espectador</label>
+      <select class="form-select w-50" id="tipo" aria-label="Default select example" name="tipo" [(ngModel)]="tipo" (ngModelChange)="seleccionarFiltro()" required>
+          <option selected disabled>Elejir tipo de Expectador</option>
+          <option value="todos">Todos</option>
+          <option value="e">Extranjero</option>
+          <option value="l">Local</option>
+      </select>
+    </div>
+  </div>
+    <table class="table caption-top">
+      
+      <caption class="text-center fw-bold" *ngIf="tipo==='todos'">Lista completa de Ticket registrados</caption>
+      <caption class="text-center fw-bold" *ngIf="tipo==='e'">Lista de Ticket registrados por tipo Extranjeros</caption>
+      <caption class="text-center fw-bold" *ngIf="tipo==='l'">Lista de Ticket registrados por tipo Locales</caption>
+      <thead class="bg-secondary text-white">
+        <tr>
+          <th scope="col">Precio</th>
+          <th scope="col">Categoria</th>
+          <th scope="col">Fecha</th>
+          <th scope="col">Espectador</th>
+          <th scope="col">DNI espectador</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of listaTickets">
+          <td>{{t.precioTicket | currency:'':'symbol':'0.0-4'}}</td>
+          <td>{{t.categoriaEspectador | tipoEspectador}}</td>
+          <td>{{t.fechaCompra}}</td>
+          <td>{{t.espectador.apellido}} {{t.espectador.nombre}} </td>
+          <td>{{t.espectador.dni}}</td>
+          <td>
+            <div class="g-0">
+              <button type="input" class="btn btn-danger rounded-2" (click)="eliminarTicket(t._id)">Eliminar Ticket</button>
+              <button type="input" class="btn btn-warning rounded-2" (click)="modificarTicket(t._id)">Modificar Ticket</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+</div>
+

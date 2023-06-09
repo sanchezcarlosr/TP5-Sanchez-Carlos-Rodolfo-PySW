@@ -1,0 +1,23 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid bg-success bg-opacity-75 p-2">
+    <a class="navbar-brand" href="#">Menu</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" [routerLink]="['catalogoDeProductos']"><i class="bi bi-cart"> Productos Destacados</i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['conversorDeMonedas']"><i class="bi bi-cash-stack"> Transacciones</i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['listaTickes']"><i class="bi bi-ticket-perforated"> Registro de Tickets</i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>

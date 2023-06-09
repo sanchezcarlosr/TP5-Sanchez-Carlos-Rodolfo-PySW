@@ -1,0 +1,19 @@
+<div class="container align-content-center text-center">
+  <button type="input" (click)="registrarProducto()" class="btn btn-success rounded-2 fw-bold">Registrar <i class="bi bi-clipboard2-fill"></i></button>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-5 m-1">
+    <div class="col" *ngFor="let producto of productos">
+        <div class="card text-center">
+            <div class="card-img p-3">
+                <img src="{{producto.imagen}}" class="card-img-top" alt="..." width="300px" height="300px">
+            </div>
+            
+            <div class="card-body">
+              <h5 class="card-title">{{producto.nombre}}</h5>
+              <p class="card-text">{{producto.descripcion}}</p>
+              <p class="card-text">$ {{producto.precio}}</p>
+            </div>
+          </div>
+      </div>
+</div>

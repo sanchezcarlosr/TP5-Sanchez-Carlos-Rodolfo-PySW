@@ -1,0 +1,89 @@
+<form class="container align-content-center w-50 mt-5 pb-3" #productoForm="ngForm">
+    <div class="border border-1 border-black rounded-3">
+      <div class="d-grid text-center">
+          <h4>Alta de Producto</h4>
+      </div>
+      <div class="p-4">
+        <div class="mb-3">
+            <label for="nombreProducto" class="form-label">Ingrese nombre del producto</label>
+            <input type="text" class="form-control rounded-0" id="nombreProducto" name="nombreProducto" placeholder="nombre del producto" [(ngModel)]="producto.nombre" required #nombreProducto="ngModel" minlength="4">
+            <div *ngIf="nombreProducto.invalid && (nombreProducto.dirty || nombreProducto.touched)" class="alert alert-danger">
+              <div *ngIf="nombreProducto.errors?.['required']">
+                Debe ingresar el nombre del producto
+              </div>
+              <div *ngIf="nombreProducto.errors?.['minlength']">
+                Ingrese un minimo de 4 caracteres
+              </div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="descripcion" class="form-label">Ingrese una descripcion</label>
+            <input type="text" class="form-control rounded-0" id="descripcion" name="descripcion" placeholder="descripcion del producto" [(ngModel)]="producto.descripcion" required #descripcion="ngModel" minlength="6">
+            <div *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)" class="alert alert-danger">
+              <div *ngIf="descripcion.errors?.['required']">
+                Debe ingresar una descripcion
+              </div>
+              <div *ngIf="descripcion.errors?.['minlength']">
+                Ingrese un minimo de 6 caracteres
+              </div>
+            </div>
+        </div>
+        
+        <div class="mb-3">
+          <label for="imagen" class="mr-2">Elije una image:</label>
+          <input type="file" id="imagen" name="imagen" accept="image/*" class="form-control-file" (change)="onFileSelected($event)" ngModel #imagen="ngModel" required />
+          <div *ngIf="imagen.invalid && (imagen.dirty || imagen.touched)" class="alert alert-danger">
+            <div *ngIf="imagen.errors?.['required']">
+              Debe ingresar una imagen
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="precio" class="form-label">Ingrese el precio</label>
+            <input type="number" class="form-control rounded-0" id="precio" name="precio" placeholder="precio del producto" [(ngModel)]="producto.precio" required #precio="ngModel" verificar-Moneda>
+            <div *ngIf="precio.invalid && (precio.dirty || precio.touched)" class="alert alert-danger">
+              <div *ngIf="precio.errors?.['required']">
+                Debe ingresar el precio
+              </div>
+              <div *ngIf="precio.errors?.['valorCorrecto']">
+                Debe ingresar un precio positivo mayor a 0
+              </div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="stock" class="form-label">Ingrese stock del producto</label>
+            <input type="number" class="form-control rounded-0" id="stock" name="stock" placeholder="stock" [(ngModel)]="producto.stock" required #stock="ngModel" verificar-Moneda>
+            <div *ngIf="stock.invalid && (stock.dirty || stock.touched)" class="alert alert-danger">
+              <div *ngIf="stock.errors?.['required']">
+                Debe ingresar un stock para el producto
+              </div>
+              <div *ngIf="stock.errors?.['valorCorrecto']">
+                Debe ingresar un precio positivo mayor a 0
+              </div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="destacado" class="form-label">Ingrese estado del producto</label>
+          <select id="destacado" name="destacado" class="text-center form-select rounded-0" [(ngModel)]="producto.destacado" required #valorOrigen="ngModel" #destacado="ngModel">
+            <option selected disabled>Seleccione un Estado del Producto</option>
+            <option value=true>Producto destacado</option>
+            <option value=false>Producto no destacado</option>
+          </select>
+          <div *ngIf="destacado.invalid && (destacado.dirty || destacado.touched)" class="alert alert-danger">
+            <div *ngIf="destacado.errors?.['required']">
+              Debe ingresar una opcion
+            </div>
+          </div>
+        </div>
+        
+        <div class="d-grid justify-content-center">
+            <button type="submit" class="form-control bg-warning rounded-3 col-4" (click)="guardarTicket()" [disabled]="!productoForm.valid">Registrar<i class="bi bi-arrow-right-short text-white float-end"></i></button>
+        </div>
+
+      </div>
+    </div>
+</form>
